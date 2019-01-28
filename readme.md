@@ -33,8 +33,8 @@
 
 - [x] README.md
 - [x] [概略](./docs-zh/overview.md)
-- [ ] [资源](./docs-zh/resources.md)
-- [ ] [教程](./docs-zh/tutorial.md)
+- [x] [资源](./docs-zh/resources.md)
+- [x] [教程](./docs-zh/tutorial.md)
 - [ ] [指南：react-native](./docs-zh/guides/react-native.md)
 - [ ] [指南：validation](./docs-zh/guides/validation.md)
 - [ ] [指南：arrays](./docs-zh/guides/arrays.md)

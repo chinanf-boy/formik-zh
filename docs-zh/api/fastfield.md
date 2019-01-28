@@ -3,38 +3,39 @@ id: fastfield
 title: <FastField />
 custom_edit_url: https://github.com/jaredpalmer/formik/edit/master/docs/api/fastfield.md
 ---
+
 ## 在我们开始之前
 
 `<FastField />`是为了表演*优化*. 然而，你真的不需要使用它，直到你这样做。只有在你熟悉反应的情况下才能继续[`shouldComponentUpdate()`](https://reactjs.org/docs/react-component.html#shouldcomponentupdate)作品。有人警告过你。\*\*
 
 **不严重。在继续之前，请检查官方反应文件的以下部分**
 
--   [反应`shouldComponentUpdate()`参考文献](https://reactjs.org/docs/react-component.html#shouldcomponentupdate)
--   [`shouldComponentUpdate`在行动中](https://reactjs.org/docs/optimizing-performance.html#shouldcomponentupdate-in-action)
+- [反应`shouldComponentUpdate()`参考文献](https://reactjs.org/docs/react-component.html#shouldcomponentupdate)
+- [`shouldComponentUpdate`在行动中](https://reactjs.org/docs/optimizing-performance.html#shouldcomponentupdate-in-action)
 
 ## 概述
 
-`<FastField />`是的优化版本`<Field />`用于大型表单（约30多个字段）或字段具有非常昂贵的验证要求时。`<FastField />`具有与相同的API`<Field>`，但实现`shouldComponentUpdate()`在内部阻止所有其他重新呈现，除非直接更新`<FastField />`'s formik状态的相关部分/切片。
+`<FastField />`是的优化版本`<Field />`用于大型表单（约 30 多个字段）或字段具有非常昂贵的验证要求时。`<FastField />`具有与相同的 API`<Field>`，但实现`shouldComponentUpdate()`在内部阻止所有其他重新呈现，除非直接更新`<FastField />`'s formik 状态的相关部分/切片。
 
 例如，`<FastField name="firstName" />`只有在以下情况下才会重新渲染：
 
--   改变到`values.firstName`，`errors.firstName`，`touched.firstName`或`isSubmitting`.这是通过比较来确定的。注意：支持点路径。
--   支柱被添加/移除到`<FastField name="firstName" />`
--   这个`name`道具更改
+- 改变到`values.firstName`，`errors.firstName`，`touched.firstName`或`isSubmitting`.这是通过比较来确定的。注意：支持点路径。
+- 支柱被添加/移除到`<FastField name="firstName" />`
+- 这个`name`道具更改
 
-除上述情况外，`<FastField />`当Formik状态的其他部分更改时不会重新呈现。但是，所有由`<FastField />`将触发重新渲染到其他“香草色”`<Field />`组件。
+除上述情况外，`<FastField />`当 Formik 状态的其他部分更改时不会重新呈现。但是，所有由`<FastField />`将触发重新渲染到其他“香草色”`<Field />`组件。
 
 ## 何时使用`<FastField />`
 
-**如果A`<Field />`“独立”于所有其他`<Field />`在您的表单中，然后您可以使用`<FastField />`**.
+**如果 A`<Field />`“独立”于所有其他`<Field />`在您的表单中，然后您可以使用`<FastField />`**.
 
-更具体地说，如果`<Field />`不更改行为或呈现基于更新到其他人的任何内容`<Field />`或`<FastField />`福米克状态的一部分，它不依赖于顶层的其他部分`<Formik />`状态（例如`isValidating`，请`submitCount`，然后您可以使用`<FastField />`作为替代品`<Field />`.
+更具体地说，如果`<Field />`不更改行为或呈现基于更新到其他人的任何内容`<Field />`或`<FastField />`Formik 状态的一部分，它不依赖于顶层的其他部分`<Formik />`状态（例如`isValidating`，请`submitCount`，然后您可以使用`<FastField />`作为替代品`<Field />`.
 
 ## 例子
 
 ```jsx
 import React from 'react';
-import { Formik, Field, FastField, Form } from 'formik';
+import {Formik, Field, FastField, Form} from 'formik';
 
 const Basic = () => (
   <div>
@@ -43,7 +44,7 @@ const Basic = () => (
       initialValues={{
         firstName: '',
         lastName: '',
-        email: '',
+        email: ''
       }}
       validationSchema={Yup.object().shape({
         firstName: Yup.string().required(),
@@ -51,7 +52,7 @@ const Basic = () => (
         lastName: Yup.string().required(),
         email: Yup.string()
           .email()
-          .required(),
+          .required()
       })}
       onSubmit={values => {
         setTimeout(() => {
@@ -67,14 +68,15 @@ const Basic = () => (
 
           {/** Updates for all changes because it's from the
            top-level formikProps which get all updates */}
-          {form.touched.firstName &&
-            form.errors.firstName && <div>{form.errors.firstName}</div>}
+          {form.touched.firstName && form.errors.firstName && (
+            <div>{form.errors.firstName}</div>
+          )}
 
           <label htmlFor="middleInitial">Middle Initial</label>
           <FastField
             name="middleInitial"
             placeholder="F"
-            render={({ field, form }) => (
+            render={({field, form}) => (
               <div>
                 <input {...field} />
                 {/**
@@ -109,7 +111,7 @@ const Basic = () => (
           <Field
             name="lastName"
             placeholder="Baby"
-            render={({ field, form }) => (
+            render={({field, form}) => (
               <div>
                 <input {...field} />
                 {/** Works because this is inside

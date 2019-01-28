@@ -1,18 +1,19 @@
 ---
 id: tutorial
-title: Tutorial
+title: 教程
 ---
-## 通过构建来学习formik。
 
-我在React Alicante的演讲确实是开始的最好方式。它介绍了库（通过观察我构建它的迷你版本），并演示了如何使用真实的东西构建一个非平凡的表单（使用数组、自定义输入等）。大约45分钟长。
+## 通过构建 formik，来学习 它
+
+我在 React Alicante 的演讲确实是开始的最好方式。它介绍了库（通过观看我构建它的迷你版本），并演示了如何使用现实的东西构建一个非凡的表单（使用数组、自定义输入等）。大约 45 分钟长。
 
 <iframe width="800" height="315" src="https://www.youtube.com/embed/oiNtnehlaTo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen title="Taming Forms in React - Jared Palmer"></iframe>
 
 ## 基础
 
-*如果您只想跳到一些代码中，这里有一个基本的快速演练…*
+_如果您只想跳到一些代码中，这里有一个基本的快速演练…_
 
-假设您想要构建一个允许您编辑用户数据的表单。但是，您的用户API有类似这样的嵌套对象。
+假设您想要构建一个允许您编辑用户数据的表单。但是，您的用户 API 有类似这样的嵌套对象。
 
 ```js
 {
@@ -29,10 +30,10 @@ title: Tutorial
 ```jsx
 // EditUserDialog.js
 import React from 'react';
-import Dialog from 'MyImaginaryDialogComponent'; // this isn't a real package, just imagine it exists.
-import { Formik } from 'formik';
+import Dialog from 'MyImaginaryDialogComponent'; // 这不是真的包, 假设它存在就好了
+import {Formik} from 'formik';
 
-const EditUserDialog = ({ user, updateUser, onClose }) => {
+const EditUserDialog = ({user, updateUser, onClose}) => {
   return (
     <Dialog onClose={onClose}>
       <h1>Edit User</h1>
@@ -48,7 +49,7 @@ const EditUserDialog = ({ user, updateUser, onClose }) => {
             error => {
               actions.setSubmitting(false);
               actions.setErrors(transformMyRestApiErrorsToAnObject(error));
-              actions.setStatus({ msg: 'Set some arbitrary status or data' });
+              actions.setStatus({msg: 'Set some arbitrary status or data'});
             }
           );
         }}
@@ -60,7 +61,7 @@ const EditUserDialog = ({ user, updateUser, onClose }) => {
           handleBlur,
           handleChange,
           handleSubmit,
-          isSubmitting,
+          isSubmitting
         }) => (
           <form onSubmit={handleSubmit}>
             <input
@@ -78,9 +79,9 @@ const EditUserDialog = ({ user, updateUser, onClose }) => {
               onBlur={handleBlur}
               value={values.social.facebook}
             />
-            {errors.social &&
-              errors.social.facebook &&
-              touched.facebook && <div>{errors.social.facebook}</div>}
+            {errors.social && errors.social.facebook && touched.facebook && (
+              <div>{errors.social.facebook}</div>
+            )}
             <input
               type="text"
               name="social.twitter"
@@ -88,9 +89,9 @@ const EditUserDialog = ({ user, updateUser, onClose }) => {
               onBlur={handleBlur}
               value={values.social.twitter}
             />
-            {errors.social &&
-              errors.social.twitter &&
-              touched.twitter && <div>{errors.social.twitter}</div>}
+            {errors.social && errors.social.twitter && touched.twitter && (
+              <div>{errors.social.twitter}</div>
+            )}
             {status && status.msg && <div>{status.msg}</div>}
             <button type="submit" disabled={isSubmitting}>
               Submit
@@ -103,20 +104,20 @@ const EditUserDialog = ({ user, updateUser, onClose }) => {
 };
 ```
 
-使书写形式不那么冗长。福米克有几个助手来帮你保存按键。
+为了书写表单不那么冗长。Formik 有几个助手来帮你保存按键。
 
--   `<Field>`
--   `<Form />`
+- `<Field>`
+- `<Form />`
 
-这是**准确的**与以前的形式相同，但用`<Form />`和`<Field />`以下内容：
+以下内容与之前的表单**完全**相同，但使用了`<Form />`和`<Field />`，：
 
 ```jsx
 // EditUserDialog.js
 import React from 'react';
 import Dialog from 'MySuperDialog';
-import { Formik, Field, Form } from 'formik';
+import {Formik, Field, Form} from 'formik';
 
-const EditUserDialog = ({ user, updateUser, onClose }) => {
+const EditUserDialog = ({user, updateUser, onClose}) => {
   return (
     <Dialog onClose={onClose}>
       <h1>Edit User</h1>
@@ -132,20 +133,22 @@ const EditUserDialog = ({ user, updateUser, onClose }) => {
             error => {
               actions.setSubmitting(false);
               actions.setErrors(transformMyRestApiErrorsToAnObject(error));
-              actions.setStatus({ msg: 'Set some arbitrary status or data' });
+              actions.setStatus({msg: 'Set some arbitrary status or data'});
             }
           );
         }}
-        render={({ errors, status, touched, isSubmitting }) => (
+        render={({errors, status, touched, isSubmitting}) => (
           <Form>
             <Field type="email" name="email" />
             {errors.email && touched.email && <div>{errors.email}</div>}
             <Field type="text" name="social.facebook" />
-            {errors.social.facebook &&
-              touched.social.facebook && <div>{errors.social.facebook}</div>}
+            {errors.social.facebook && touched.social.facebook && (
+              <div>{errors.social.facebook}</div>
+            )}
             <Field type="text" name="social.twitter" />
-            {errors.social.twitter &&
-              touched.social.twitter && <div>{errors.social.twitter}</div>}
+            {errors.social.twitter && touched.social.twitter && (
+              <div>{errors.social.twitter}</div>
+            )}
             {status && status.msg && <div>{status.msg}</div>}
             <button type="submit" disabled={isSubmitting}>
               Submit
@@ -158,15 +161,15 @@ const EditUserDialog = ({ user, updateUser, onClose }) => {
 };
 ```
 
-这更好，但所有这些`errors`和`touched`逻辑仍然是相当重复的。formik有一个组件`<ErrorMessage>`这样可以简化更多的事情。它接受渲染道具或组件道具以获得最大的灵活性。
+这更好，但所有这些`errors`和`touched`逻辑仍然是相当重复的。formik 有一个组件`<ErrorMessage>`，可以简化更多的事情。它接受渲染 props 或组件 props 以获得最大的灵活性。
 
 ```jsx
 // EditUserDialog.js
 import React from 'react';
 import Dialog from 'MySuperDialog';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import {Formik, Field, Form, ErrorMessage} from 'formik';
 
-const EditUserDialog = ({ user, updateUser, onClose }) => {
+const EditUserDialog = ({user, updateUser, onClose}) => {
   return (
     <Dialog onClose={onClose}>
       <h1>Edit User</h1>
@@ -182,20 +185,24 @@ const EditUserDialog = ({ user, updateUser, onClose }) => {
             error => {
               actions.setSubmitting(false);
               actions.setErrors(transformMyRestApiErrorsToAnObject(error));
-              actions.setStatus({ msg: 'Set some arbitrary status or data' });
+              actions.setStatus({msg: 'Set some arbitrary status or data'});
             }
           );
         }}
-        render={({ errors, status, touched, isSubmitting }) => (
+        render={({errors, status, touched, isSubmitting}) => (
           <Form>
             <Field type="email" name="email" />
-            <ErrorMessage name="email" component="div" />  
+            <ErrorMessage name="email" component="div" />
             <Field type="text" className="error" name="social.facebook" />
             <ErrorMessage name="social.facebook">
               {errorMessage => <div className="error">{errorMessage}</div>}
             </ErrorMessage>
             <Field type="text" name="social.twitter" />
-            <ErrorMessage name="social.twitter" className="error" component="div"/>  
+            <ErrorMessage
+              name="social.twitter"
+              className="error"
+              component="div"
+            />
             {status && status.msg && <div>{status.msg}</div>}
             <button type="submit" disabled={isSubmitting}>
               Submit
