@@ -1,17 +1,18 @@
 ---
 id: arrays
-title: Arrays and Nested Objects
+title: Arrays 和嵌套 Objects
 custom_edit_url: https://github.com/jaredpalmer/formik/edit/master/docs/guides/arrays.md
 ---
-Formik支持嵌套对象和开箱即用的数组。这两个主题有些相关，因为它们都使用相同的语法。
+
+Formik 支持嵌套对象和开箱即用的数组。这两个主题有些相关，因为它们都使用相同的语法。
 
 ## 嵌套对象
 
-该`name`Formik中的道具可以使用类似lodash的点路径来引用嵌套的Formik值。这意味着您不再需要压缩表单的值。
+Formik 中的`name` props 可以使用类似 lodash 的点路径，来引用嵌套的 Formik 值。这意味着您不再需要压平表单的值。
 
 ```jsx
 import React from 'react';
-import { Formik, Form, Field } from 'formik';
+import {Formik, Form, Field} from 'formik';
 
 export const NestedExample = () => (
   <div>
@@ -20,8 +21,8 @@ export const NestedExample = () => (
       initialValues={{
         social: {
           facebook: '',
-          twitter: '',
-        },
+          twitter: ''
+        }
       }}
       onSubmit={values => {
         // same shape as initial values
@@ -38,18 +39,18 @@ export const NestedExample = () => (
 
 ## 数组
 
-Formik还支持开箱即用的数组和对象数组。使用类似lodash的括号语法`name`字符串，您可以快速为列表中的项目构建字段。
+Formik 还支持开箱即用的数组和对象数组。使用类似 lodash 的括号语法`name`字符串，您可以快速为列表中的项目构建字段。
 
 ```jsx
 import React from 'react';
-import { Formik, Form, Field } from 'formik';
+import {Formik, Form, Field} from 'formik';
 
 export const BasicArrayExample = () => (
   <div>
     <h1>Friends</h1>
     <Formik
       initialValues={{
-        friends: ['jared', 'ian'],
+        friends: ['jared', 'ian']
       }}
       onSubmit={values => {
         // same shape as initial values
@@ -64,4 +65,4 @@ export const BasicArrayExample = () => (
 );
 ```
 
-有关在列表中操作（添加/删除/ etc）项的更多信息，请参阅上面的API参考部分`<FieldArray>`零件。
+有关在列表中操作（添加/删除/ 更多）items 的更多信息，请参阅`<FieldArray>`组件的 API 参考部分。
