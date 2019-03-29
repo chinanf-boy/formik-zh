@@ -21,10 +21,9 @@
 <!-- repo = 'jaredpalmer/formik' -->
 <!-- commit = 'dc4bcf97e61b14fb4e90baff76cc209c13db19bc' -->
 <!-- time = '2019-01-09' -->
-
-| 翻译的原文 | 与日期        | 最新更新 | 更多                       |
-| ---------- | ------------- | -------- | -------------------------- |
-| [commit]   | ⏰ 2019-01-09 | ![last]  | [中文翻译][translate-list] |
+翻译的原文 | 与日期 | 最新更新 | 更多
+---|---|---|---
+[commit] | ⏰ 2019-01-09 | ![last] | [中文翻译][translate-list]
 
 [last]: https://img.shields.io/github/last-commit/jaredpalmer/formik.svg
 [commit]: https://github.com/jaredpalmer/formik/tree/dc4bcf97e61b14fb4e90baff76cc209c13db19bc
@@ -36,7 +35,7 @@
 - [x] [资源](./docs-zh/resources.md)
 - [x] [教程](./docs-zh/tutorial.md)
 - [x] [指南：react-native](./docs-zh/guides/react-native.md)
-- [ ] [指南：验证](./docs-zh/guides/validation.md)
+- [x] [指南：验证](./docs-zh/guides/validation.md)
 - [x] [指南：arrays](./docs-zh/guides/arrays.md)
 - [x] [指南：表单 提交](./docs-zh/guides/form-submission.md)
 - [x] [指南：typescript](./docs-zh/guides/typescript.md)
@@ -55,7 +54,7 @@
 
 ## 生活
 
-[help me live , live need money 💰](https://github.com/chinanf-boy/live-need-money)
+[If help, **buy** me coffee —— 营养跟不上了，给我来瓶营养快线吧! 💰](https://github.com/chinanf-boy/live-need-money)
 
 ---
 
